@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Diagnóstico de Fiesta | DJ Ponte</title>
+  <meta name="description" content="Análisis en 3 minutos para eliminar el riesgo de pifia. Obtén tu FiestaScore (0–100), pack recomendado y protocolo de seguridad." />
+  <meta property="og:title" content="Diagnóstico de Fiesta | DJ Ponte" />
+  <meta property="og:description" content="Tu DJ no es música. Es el seguro de que la fiesta funcione." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div class="bg-glow"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <img class="brand__logo" src="assets/logo.png" alt="DJ Ponte" />
+      <div class="brand__meta">
+        <div class="brand__name">DJPONTE<span class="muted">.com</span></div>
+        <div class="brand__tag">Bodas · Cumpleaños · Empresa · Privados</div>
+      </div>
+    </div>
+
+    <a class="topbar__link" href="#" id="restartLink" title="Reiniciar diagnóstico">Reiniciar</a>
+  </header>
+
+  <main class="wrap">
+    <!-- HERO -->
+    <section class="card hero" id="hero">
+      <h1 class="hero-title">
+  ¿BUSCAS DJ?<br>
+  <span class="grad">EVITA UNA FIESTA FRÍA</span><br>
+  <span style="font-size:0.65em; font-weight:700;">
+    ASEGURA QUE TU EVENTO<br>
+    SE RECUERDE DE VERDAD
+  </span>
+</h1>
+      <p class="sub">Diagnóstico profesional en 3 minutos para que tu evento funcione.</p>
+
+      <div class="pill-row" style="justify-content:center">
+        <div class="pill">⏱ 3 minutos</div>
+        <div class="pill">🎛 FiestaScore (0–100)</div>
+        <div class="pill">🧰 Pack recomendado</div>
+      </div>
+
+      <button class="btn btn--primary btn--xl" id="startBtn">Quiero asegurar mi fiesta</button>
+      <p class="fineprint" style="text-align:center; margin-top:10px;">Sin compromiso · Resultado inmediato</p>
+
+      <p class="fineprint">
+        Informe inmediato en pantalla. Si quieres que te lo enviemos por email/WhatsApp, te lo pedimos al final (opcional).
+      </p>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="card quiz hidden" id="quiz">
+      <div class="quiz__head">
+        <div>
+          <div class="kicker">Diagnóstico rápido</div>
+          <h2>Datos del evento</h2>
+          <p class="sub2">Responde como si fuera hoy: así el informe es preciso.</p>
+        </div>
+        <div class="progress">
+          <div class="progress__bar"><div class="progress__fill" id="progressFill"></div></div>
+          <div class="progress__txt"><span id="stepTxt">1</span>/<span id="stepTotal">10</span></div>
+        </div>
+      </div>
+
+      <div class="qbox" id="qbox"></div>
+
+      <div class="nav">
+        <button class="btn btn--ghost" id="backBtn">Atrás</button>
+        <button class="btn btn--primary" id="nextBtn">Continuar</button>
+      </div>
+
+      <p class="fineprint">
+        Tip: si el local tiene límite de dB o hay varias edades, añádelo en el último paso.
+      </p>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="card results hidden" id="results">
+      <div class="results__head">
+        <div class="kicker">Informe</div>
+        <h2 id="reportTitle">Tu diagnóstico</h2>
+        <p class="sub2" id="reportSubtitle">Recomendación para que el evento salga redondo.</p>
+      </div>
+
+      
+      <div class="panel panel--wide">
+        <h3>Lo que esto significa para tu evento</h3>
+        <ul class="list" id="persuasionBox"></ul>
+      </div>
+
+      <div class="grid">
+
+        <div class="panel">
+          <h3>Tu FiestaScore</h3>
+          <div class="score">
+            <div class="score__num" id="scoreNum">--</div>
+            <div class="score__meta">
+              <div class="badge" id="riskBadge">Riesgo</div>
+              <div class="muted" id="scoreExplain">—</div>
+            </div>
+          </div>
+          <div class="spark" aria-hidden="true"></div>
+        </div>
+
+        <div class="panel">
+          <h3>Pack recomendado</h3>
+          <div class="pack">
+            <div class="pack__name" id="packName">—</div>
+            <div class="pack__price" id="packPrice">—</div>
+            <ul class="list" id="packList"></ul>
+          </div>
+        </div>
+
+        <div class="panel panel--wide">
+          <h3>Protocolo de seguridad</h3>
+          <ul class="list" id="protocolList"></ul>
+        </div>
+      </div>
+
+      <div class="lead card--inner">
+        <h3>¿Te lo enviamos por email o WhatsApp?</h3>
+        <p class="sub2">Opcional. Si lo rellenas, te envío el informe + una propuesta rápida.</p>
+
+        <form id="leadForm" class="form">
+          <div class="row">
+            <label>Nombre
+              <input type="text" name="name" placeholder="Tu nombre" autocomplete="name" />
+            </label>
+            <label>Email
+              <input type="email" name="email" placeholder="tu@email.com" autocomplete="email" />
+            </label>
+          </div>
+
+          <div class="row">
+            <label>WhatsApp (opcional)
+              <input type="tel" name="whatsapp" placeholder="+34…" autocomplete="tel" />
+            </label>
+            <label>Provincia / zona (opcional)
+              <input type="text" name="zone" placeholder="Ej: A Coruña / Pontevedra…" />
+            </label>
+          </div>
+
+          <label class="check">
+            <input type="checkbox" name="consent" />
+            Acepto que me contactes para este evento.
+          </label>
+
+          <div class="row row--actions">
+            <button class="btn btn--ghost" type="button" id="downloadJsonBtn">Descargar informe (PDF)</button>
+            <button class="btn btn--primary" type="submit">Enviar</button>
+          </div>
+
+          <div class="muted" id="formMsg" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+
+      <div class="cta">
+        <button class="btn btn--primary" id="ctaBtn">Quiero asegurar mi evento</button>
+        <button class="btn btn--ghost" id="shareBtn">Compartir</button>
+      </div>
+
+      <p class="fineprint">
+        Nota: este diagnóstico no compromete nada. Solo sirve para que el día del evento no haya sorpresas.
+      </p>
+    </section>
+
+    <footer class="footer">
+      <div class="muted">© DJ Ponte — Bodas · Cumpleaños · Eventos de empresa · Privados</div>
+    </footer>
+  </main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous"></script>
+  <script src="app.js"></script>
+</body>
+</html>
