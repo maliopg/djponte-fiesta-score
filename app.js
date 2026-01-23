@@ -527,7 +527,7 @@ function recommendPack({ a, score, risk, riskLevel }) {
     ];
   } else if (isCompany) {
     packName = score >= 75 ? "Pack Empresa Premium" : "Pack Empresa Pro";
-    packPrice = "Desde 350€ (3–4 horas)";
+    packPrice = "Desde 450€ (3–4 horas)";
     items = [
       "Ambiente elegante → fiesta (transición controlada)",
       "Volumen adaptado al local y normativa",
