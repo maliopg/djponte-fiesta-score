@@ -4,7 +4,7 @@
 const CONFIG = {
   whatsappNumber: "34669060192", // <-- CAMBIA ESTO (Ej: 34600111222). Sin '+'
   brandUrl: "https://djponte.com",
-  leadEndpoint: "PASTE_GOOGLE_APPS_SCRIPT_WEBAPP_URL_HERE", // opcional: URL para enviar leads (Formspree / Make / Zapier / tu API). Si está vacío, no envía nada.
+  leadEndpoint: "https://hook.eu2.make.com/atbstqohwtc05uj0gpeco8xjmqnheiyw", // opcional: URL para enviar leads (Formspree / Make / Zapier / tu API). Si está vacío, no envía nada.
 };
 
 const $ = (sel) => document.querySelector(sel);
