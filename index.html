@@ -1,176 +1,1028 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Diagnóstico de Fiesta | DJ Ponte</title>
-  <meta name="description" content="Análisis en 3 minutos para eliminar el riesgo de pifia. Obtén tu FiestaScore (0–100), pack recomendado y protocolo de seguridad." />
-  <meta property="og:title" content="Diagnóstico de Fiesta | DJ Ponte" />
-  <meta property="og:description" content="Tu DJ no es música. Es el seguro de que la fiesta funcione." />
-  <meta property="og:type" content="website" />
-  <link rel="icon" href="assets/logo.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Tu fiesta será épica? | DJ Ponte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #FFD84D;
+    --gold-dark: #C9A800;
+    --bg: #0A0A0F;
+    --bg2: #111118;
+    --bg3: #1A1A26;
+    --text: #F0EEE8;
+    --muted: #7A7A90;
+    --danger: #FF4D6D;
+    --success: #4DFFA0;
+    --card-border: rgba(255,216,77,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* BG grain */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* Glow bg orbs */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .orb-1 {
+    width: 500px; height: 500px;
+    background: rgba(255,216,77,0.07);
+    top: -150px; right: -100px;
+  }
+  .orb-2 {
+    width: 400px; height: 400px;
+    background: rgba(77,160,255,0.05);
+    bottom: -100px; left: -100px;
+  }
+
+  .page { position: relative; z-index: 1; }
+
+  /* ─── HEADER ─── */
+  header {
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,10,15,0.8);
+  }
+
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  .logo span { color: var(--text); }
+
+  .badge-live {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .badge-live::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--success);
+    box-shadow: 0 0 8px var(--success);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    text-align: center;
+    padding: 4rem 1.5rem 2rem;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(255,216,77,0.08);
+    border: 1px solid rgba(255,216,77,0.2);
+    padding: 0.35rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--gold);
+    display: block;
+  }
+
+  .hero p {
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 480px;
+    margin: 0 auto 2rem;
+  }
+
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-top: 1rem;
+  }
+
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 0.2rem;
+  }
+
+  /* ─── QUIZ CONTAINER ─── */
+  .quiz-wrap {
+    max-width: 680px;
+    margin: 2.5rem auto;
+    padding: 0 1.5rem 4rem;
+  }
+
+  /* Progress */
+  .progress-track {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
+    align-items: center;
+  }
+
+  .progress-step {
+    height: 4px;
+    flex: 1;
+    border-radius: 100px;
+    background: rgba(255,255,255,0.08);
+    transition: background 0.5s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .progress-step.active { background: var(--gold); }
+  .progress-step.done { background: rgba(255,216,77,0.4); }
+
+  .progress-label {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    min-width: 60px;
+    text-align: right;
+  }
+
+  /* Question card */
+  .q-card {
+    background: var(--bg3);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    display: none;
+    animation: slideIn 0.4s ease;
+  }
+
+  .q-card.active { display: block; }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .q-number {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+
+  .q-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    line-height: 1.1;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.02em;
+  }
+
+  .q-sub {
+    font-size: 0.88rem;
+    color: var(--muted);
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+
+  /* Options */
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.1rem 1.4rem;
+    border-radius: 14px;
+    border: 1.5px solid rgba(255,255,255,0.07);
+    background: rgba(255,255,255,0.02);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .option:hover {
+    border-color: rgba(255,216,77,0.3);
+    background: rgba(255,216,77,0.04);
+    transform: translateX(4px);
+  }
+
+  .option.selected {
+    border-color: var(--gold);
+    background: rgba(255,216,77,0.08);
+  }
+
+  .option.selected .opt-check {
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+
+  .option.selected .opt-check::after {
+    opacity: 1;
+  }
+
+  .opt-icon {
+    font-size: 1.5rem;
+    width: 40px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  .opt-check {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.15);
+    margin-left: auto;
+    flex-shrink: 0;
+    position: relative;
+    transition: all 0.2s;
+  }
+
+  .opt-check::after {
+    content: '';
+    position: absolute;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--bg);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .opt-label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    flex: 1;
+  }
+
+  .opt-desc {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 0.2rem;
+  }
+
+  /* Pain badge */
+  .pain-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    background: rgba(255,77,109,0.15);
+    color: var(--danger);
+    margin-left: 0.5rem;
+    vertical-align: middle;
+  }
+
+  .good-badge {
+    background: rgba(77,255,160,0.12);
+    color: var(--success);
+  }
+
+  /* CTA Button */
+  .btn-primary {
+    width: 100%;
+    padding: 1.1rem 2rem;
+    background: var(--gold);
+    color: var(--bg);
+    border: none;
+    border-radius: 14px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .btn-primary:hover {
+    background: #ffe066;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(255,216,77,0.3);
+  }
+
+  .btn-primary:disabled {
+    background: rgba(255,216,77,0.2);
+    color: var(--muted);
+    transform: none;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+
+  /* ─── LEAD FORM ─── */
+  .lead-section {
+    display: none;
+    animation: slideIn 0.5s ease;
+  }
+
+  .lead-section.active { display: block; }
+
+  .score-reveal {
+    text-align: center;
+    padding: 2.5rem 2rem;
+    background: var(--bg3);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .score-reveal::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), #FF9F1C, var(--gold));
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  .score-emoji { font-size: 3rem; margin-bottom: 0.5rem; }
+
+  .score-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+  }
+
+  .score-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 400px;
+    margin: 0 auto 1.5rem;
+  }
+
+  .score-bar-wrap {
+    background: rgba(255,255,255,0.05);
+    border-radius: 100px;
+    height: 8px;
+    max-width: 300px;
+    margin: 0 auto 0.75rem;
+    overflow: hidden;
+  }
+
+  .score-bar {
+    height: 100%;
+    border-radius: 100px;
+    background: linear-gradient(90deg, var(--gold), #FF9F1C);
+    width: 0%;
+    transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .score-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+  }
+
+  /* Form */
+  .lead-form-card {
+    background: var(--bg3);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 2rem;
+  }
+
+  .form-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-sub {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  @media (max-width: 480px) {
+    .form-row { grid-template-columns: 1fr; }
+  }
+
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group.full { grid-column: 1/-1; }
+
+  label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  input, select {
+    padding: 0.85rem 1rem;
+    background: rgba(255,255,255,0.04);
+    border: 1.5px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+    outline: none;
+    width: 100%;
+  }
+
+  input:focus, select:focus {
+    border-color: rgba(255,216,77,0.4);
+    background: rgba(255,216,77,0.03);
+  }
+
+  input::placeholder { color: var(--muted); }
+
+  select option { background: var(--bg2); }
+
+  .checkbox-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin: 1rem 0;
+  }
+
+  .checkbox-row input[type="checkbox"] {
+    width: 18px; height: 18px;
+    accent-color: var(--gold);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .checkbox-row span {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .trust-badges {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  .trust-item svg {
+    width: 14px; height: 14px;
+    color: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* Success */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--bg3);
+    border: 1px solid rgba(77,255,160,0.15);
+    border-radius: 20px;
+    animation: slideIn 0.5s ease;
+  }
+  .success-screen.active { display: block; }
+  .success-icon { font-size: 4rem; margin-bottom: 1rem; }
+  .success-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+    color: var(--success);
+  }
+  .success-text { font-size: 0.95rem; color: var(--muted); line-height: 1.6; max-width: 400px; margin: 0 auto 2rem; }
+  .whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem 2rem;
+    background: #25D366;
+    color: white;
+    border-radius: 14px;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .whatsapp-btn:hover { background: #20BA5A; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37,211,102,0.3); }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .hero { padding: 3rem 1.2rem 1.5rem; }
+    .hero h1 { font-size: 3rem; }
+    .q-card { padding: 1.75rem 1.25rem; }
+    .lead-form-card { padding: 1.5rem 1.25rem; }
+    .hero-stats { gap: 1.5rem; }
+  }
+</style>
 </head>
-
 <body>
-  <div class="bg-glow"></div>
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
 
-  <header class="topbar">
-    <div class="brand">
-      <img class="brand__logo" src="assets/logo.png" alt="DJ Ponte" />
-      <div class="brand__meta">
-        <div class="brand__name">DJPONTE<span class="muted">.com</span></div>
-        <div class="brand__tag">Bodas · Cumpleaños · Eventos</div>
+<div class="page">
+
+  <!-- Header -->
+  <header>
+    <a class="logo" href="https://djponte.com" target="_blank">DJ<span>PONTE</span></a>
+    <div class="badge-live">Diagnóstico gratuito</div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-eyebrow">🎛 FiestaScore — Diagnóstico en 60 segundos</div>
+    <h1>¿Tu fiesta va a ser <em>épica o un desastre?</em></h1>
+    <p>3 preguntas revelan los riesgos ocultos de tu evento. Resultado inmediato + solución personalizada.</p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">+200</div>
+        <div class="stat-label">Eventos</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Satisfacción</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">60s</div>
+        <div class="stat-label">Diagnóstico</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quiz -->
+  <div class="quiz-wrap">
+
+    <!-- Progress -->
+    <div class="progress-track" id="progressTrack">
+      <div class="progress-step active" id="step1"></div>
+      <div class="progress-step" id="step2"></div>
+      <div class="progress-step" id="step3"></div>
+      <span class="progress-label" id="progressLabel">Pregunta 1/3</span>
+    </div>
+
+    <!-- Q1: Tipo de evento -->
+    <div class="q-card active" id="q1">
+      <div class="q-number">Pregunta 1 de 3</div>
+      <div class="q-text">¿Qué tipo de evento estás organizando?</div>
+      <div class="q-sub">Cada evento tiene sus propios riesgos. Identifícalos antes de que sea tarde.</div>
+      <div class="options">
+        <div class="option" data-q="1" data-val="boda" data-score="30" onclick="selectOption(this)">
+          <span class="opt-icon">💍</span>
+          <div>
+            <div class="opt-label">Boda <span class="pain-badge">Alto riesgo</span></div>
+            <div class="opt-desc">Un día único que no se repite. El error más caro.</div>
+          </div>
+          <div class="opt-check"></div>
+        </div>
+        <div class="option" data-q="1" data-val="cumple" data-score="20" onclick="selectOption(this)">
+          <span class="opt-icon">🎂</span>
+          <div>
+            <div class="opt-label">Cumpleaños / Fiesta privada</div>
+            <div class="opt-desc">¿Fiesta que se recuerda o reunión aburrida?</div>
+          </div>
+          <div class="opt-check"></div>
+        </div>
+        <div class="option" data-q="1" data-val="empresa" data-score="15" onclick="selectOption(this)">
+          <span class="opt-icon">🏢</span>
+          <div>
+            <div class="opt-label">Evento corporativo / empresa</div>
+            <div class="opt-desc">Imagen de marca en juego ante tus clientes.</div>
+          </div>
+          <div class="opt-check"></div>
+        </div>
+        <div class="option" data-q="1" data-val="otro" data-score="10" onclick="selectOption(this)">
+          <span class="opt-icon">🎉</span>
+          <div>
+            <div class="opt-label">Otro tipo de evento</div>
+            <div class="opt-desc">Comuniones, bautizos, aniversarios...</div>
+          </div>
+          <div class="opt-check"></div>
+        </div>
+      </div>
+      <button class="btn-primary" id="btn1" onclick="nextQ(2)" disabled>
+        Siguiente ➜
+      </button>
+    </div>
+
+    <!-- Q2: Mayor miedo -->
+    <div class="q-card" id="q2">
+      <div class="q-number">Pregunta 2 de 3</div>
+      <div class="q-text">¿Cuál es tu mayor miedo para el evento?</div>
+      <div class="q-sub">El 73% de los eventos fallidos tienen uno de estos problemas. ¿Cuál te quita el sueño?</div>
+      <div class="options">
+        <div class="option" data-q="2" data-val="aburrimiento" data-score="35" onclick="selectOption(this)">
+          <span class="opt-icon">😴</span>
+          <div>
+            <div class="opt-label">Que la gente se aburra y se vaya pronto <span class="pain-badge">El más común</span></div>
+            <div class="opt-desc">Pista vacía. Ambiente muerto. Recuerdo amargo.</div>
+          </div>
+          <div class="opt-check"></div>
+        </div>
+        <div class="option" data-q="2" data-val="tecnico" data-score="25" onclick="selectOption(this)">
+          <span class="opt-icon">⚡</span>
+          <div>
+            <div class="opt-label">Problemas técnicos o de sonido <span class="pain-badge">Muy frecuente</span></div>
+            <div class="opt-desc">Micros que no funcionan, música cortada, caos.</div>
+          </div>
+          <div class="opt-check"></div>
+        </div>
+        <div class="option" data-q="2" data-val="dj" data-score="30" onclick="selectOption(this)">
+          <span class="opt-icon">🎧</span>
+          <div>
+            <div class="opt-label">Contratar un DJ malo o sin experiencia</div>
+            <div class="opt-desc">Música que no gusta, sin leer el ambiente.</div>
+          </div>
+          <div class="opt-check"></div>
+        </div>
+        <div class="option" data-q="2" data-val="organizacion" data-score="15" onclick="selectOption(this)">
+          <span class="opt-icon">📋</span>
+          <div>
+            <div class="opt-label">Mala organización y falta de coordinación</div>
+            <div class="opt-desc">Retrasos, cambios de última hora, improvisación.</div>
+          </div>
+          <div class="opt-check"></div>
+        </div>
+      </div>
+      <button class="btn-primary" id="btn2" onclick="nextQ(3)" disabled>
+        Siguiente ➜
+      </button>
+    </div>
+
+    <!-- Q3: Cuándo -->
+    <div class="q-card" id="q3">
+      <div class="q-number">Pregunta 3 de 3</div>
+      <div class="q-text">¿Cuándo es tu evento?</div>
+      <div class="q-sub">La disponibilidad en fechas clave se agota meses antes. Confirma a tiempo.</div>
+      <div class="options">
+        <div class="option" data-q="3" data-val="1mes" data-score="40" onclick="selectOption(this)">
+          <span class="opt-icon">🚨</span>
+          <div>
+            <div class="opt-label">En menos de 1 mes <span class="pain-badge">Urgente</span></div>
+            <div class="opt-desc">El tiempo juega en tu contra. Hay que actuar ya.</div>
+          </div>
+          <div class="opt-check"></div>
+        </div>
+        <div class="option" data-q="3" data-val="3meses" data-score="25" onclick="selectOption(this)">
+          <span class="opt-icon">⚠️</span>
+          <div>
+            <div class="opt-label">Entre 1 y 3 meses</div>
+            <div class="opt-desc">Hay tiempo, pero las fechas buenas se llenan.</div>
+          </div>
+          <div class="opt-check"></div>
+        </div>
+        <div class="option" data-q="3" data-val="6meses" data-score="15" onclick="selectOption(this)">
+          <span class="opt-icon">📅</span>
+          <div>
+            <div class="opt-label">Entre 3 y 6 meses <span class="good-badge">Buena planificación</span></div>
+            <div class="opt-desc">Tiempo suficiente para preparar algo increíble.</div>
+          </div>
+          <div class="opt-check"></div>
+        </div>
+        <div class="option" data-q="3" data-val="masde6" data-score="5" onclick="selectOption(this)">
+          <span class="opt-icon">🗓️</span>
+          <div>
+            <div class="opt-label">Más de 6 meses</div>
+            <div class="opt-desc">Perfecto para reservar antes de que se acaben las fechas.</div>
+          </div>
+          <div class="opt-check"></div>
+        </div>
+      </div>
+      <button class="btn-primary" id="btn3" onclick="showLead()" disabled>
+        Ver mi diagnóstico ➜
+      </button>
+    </div>
+
+    <!-- LEAD FORM -->
+    <div class="lead-section" id="leadSection">
+
+      <div class="score-reveal">
+        <div class="score-emoji" id="scoreEmoji">🔍</div>
+        <div class="score-title" id="scoreTitle">Analizando tu evento...</div>
+        <div class="score-desc" id="scoreDesc">Calculando tu FiestaScore personalizado.</div>
+        <div class="score-bar-wrap">
+          <div class="score-bar" id="scoreBar"></div>
+        </div>
+        <div class="score-num" id="scoreNum">— / 100</div>
+      </div>
+
+      <div class="lead-form-card">
+        <div class="form-title">Recibe tu informe completo</div>
+        <div class="form-sub">Tu FiestaScore está listo. Déjame tus datos y te envío el diagnóstico detallado + disponibilidad de fechas.</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nombre *</label>
+            <input type="text" id="fname" placeholder="Tu nombre">
+          </div>
+          <div class="form-group">
+            <label>WhatsApp *</label>
+            <input type="tel" id="fphone" placeholder="+34 600 000 000">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full">
+            <label>Email</label>
+            <input type="email" id="femail" placeholder="tu@email.com">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full">
+            <label>Provincia / Zona</label>
+            <input type="text" id="fzona" placeholder="Ej: Madrid, Barcelona...">
+          </div>
+        </div>
+
+        <div class="checkbox-row">
+          <input type="checkbox" id="fcheck">
+          <span>Acepto que DJ Ponte me contacte para este evento. Sin spam, sin llamadas comerciales.</span>
+        </div>
+
+        <button class="btn-primary" onclick="submitLead()">
+          🎉 Quiero asegurar mi fiesta
+        </button>
+
+        <div class="trust-badges">
+          <div class="trust-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Sin compromiso
+          </div>
+          <div class="trust-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            100% confidencial
+          </div>
+          <div class="trust-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            Respuesta en 2h
+          </div>
+        </div>
       </div>
     </div>
 
-    <a class="topbar__link" href="#" id="restartLink" title="Reiniciar diagnóstico">Reiniciar</a>
-  </header>
+    <!-- SUCCESS -->
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">🎊</div>
+      <div class="success-title">¡Recibido!</div>
+      <div class="success-text">Te contacto en menos de 2 horas con tu diagnóstico completo y disponibilidad para tu fecha. ¡Tu fiesta va a ser épica!</div>
+      <a class="whatsapp-btn" id="waLink" href="#" target="_blank">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Escríbeme por WhatsApp
+      </a>
+      <p style="margin-top:1.25rem;font-size:0.8rem;color:var(--muted);">También puedes visitar <a href="https://djponte.com" target="_blank" style="color:var(--gold);text-decoration:none;font-weight:600;">djponte.com</a> para ver mi trabajo.</p>
+    </div>
 
-  <main class="wrap">
-    <!-- HERO -->
-    <section class="card hero" id="hero">
-      <h1 class="hero-title">
-  ¿BUSCAS DJ?<br>
-  <span class="grad">EVITA UNA FIESTA ABURRIDA </span>🥱<br>
-  <span style="font-size:0.65em; font-weight:700;">
-    HAZ DE TU EVENTO<br>
-    UN FIESTÓN 🎉  </span>
-</h1>
-      <p class="sub">Diagnóstico profesional en 3 minutos.</p>
+  </div>
+</div>
 
-      <div class="pill-row" style="justify-content:center">
-        <div class="pill">⏱ 3 minutos</div>
-        <div class="pill">🎛 FiestaScore (0–100)</div>
-        <div class="pill">🧰 Pack recomendado</div>
-      </div>
+<script>
+  const scores = { q1: 0, q2: 0, q3: 0 };
+  const answers = { q1: '', q2: '', q3: '' };
 
-      <button class="btn btn--primary btn--xl" id="startBtn">Quiero asegurar mi fiesta</button>
-      <p class="fineprint" style="text-align:center; margin-top:10px;">Sin compromiso · Resultado inmediato</p>
-      
-    </section>
+  function selectOption(el) {
+    const q = el.dataset.q;
+    // Deselect all in same question
+    document.querySelectorAll(`[data-q="${q}"]`).forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    scores[`q${q}`] = parseInt(el.dataset.score);
+    answers[`q${q}`] = el.dataset.val;
 
-    <!-- QUIZ -->
-    <section class="card quiz hidden" id="quiz">
-      <div class="quiz__head">
-        <div>
-          <div class="kicker">Diagnóstico rápido</div>
-          <h2>Datos del evento</h2>
-          <p class="sub2">Marca la opción que más te interesa.</p>
-        </div>
-        <div class="progress">
-          <div class="progress__bar"><div class="progress__fill" id="progressFill"></div></div>
-          <div class="progress__txt"><span id="stepTxt">1</span>/<span id="stepTotal">10</span></div>
-        </div>
-      </div>
+    // Enable next button
+    const btn = document.getElementById(`btn${q}`);
+    if (btn) btn.disabled = false;
+  }
 
-      <div class="qbox" id="qbox"></div>
+  function nextQ(num) {
+    document.getElementById(`q${num-1}`).classList.remove('active');
+    document.getElementById(`q${num}`).classList.add('active');
+    updateProgress(num);
+  }
 
-      <div class="nav">
-        <button class="btn btn--ghost" id="backBtn">Atrás</button>
-        <button class="btn btn--primary" id="nextBtn">Continuar</button>
-      </div>
+  function updateProgress(current) {
+    for (let i = 1; i <= 3; i++) {
+      const step = document.getElementById(`step${i}`);
+      if (i < current) step.className = 'progress-step done';
+      else if (i === current) step.className = 'progress-step active';
+      else step.className = 'progress-step';
+    }
+    document.getElementById('progressLabel').textContent = `Pregunta ${current}/3`;
+  }
 
-    </section>
+  function showLead() {
+    // Hide progress
+    document.getElementById('progressTrack').style.display = 'none';
+    document.getElementById('q3').classList.remove('active');
+    document.getElementById('leadSection').classList.add('active');
 
-    <!-- RESULTS -->
-    <section class="card results hidden" id="results">
-      <div class="results__head">
-        <div class="kicker">Informe</div>
-        <h2 id="reportTitle">Tu diagnóstico</h2>
-        <p class="sub2" id="reportSubtitle">Recomendación para que el evento salga redondo.</p>
-      </div>
+    // Calculate score
+    const total = Math.min(100, scores.q1 + scores.q2 + scores.q3 + Math.floor(Math.random() * 10));
 
-      
-      <div class="panel panel--wide">
-        <h3>Lo que esto significa para tu evento</h3>
-        <ul class="list" id="persuasionBox"></ul>
-      </div>
+    // Determine message
+    let emoji, title, desc;
+    if (total >= 70) {
+      emoji = '🚨';
+      title = 'Tu evento tiene riesgos altos';
+      desc = 'Hay varios puntos críticos que podrían arruinar tu fiesta. Con la ayuda correcta, se pueden resolver todos.';
+    } else if (total >= 45) {
+      emoji = '⚠️';
+      title = 'Tu evento necesita atención';
+      desc = 'Hay factores de riesgo que conviene cubrir para garantizar una fiesta sin sorpresas.';
+    } else {
+      emoji = '✅';
+      title = 'Buen punto de partida';
+      desc = 'Tu evento tiene menos riesgos, pero asegurar los detalles marcará la diferencia entre bueno y épico.';
+    }
 
-      <div class="grid">
+    setTimeout(() => {
+      document.getElementById('scoreEmoji').textContent = emoji;
+      document.getElementById('scoreTitle').textContent = title;
+      document.getElementById('scoreDesc').textContent = desc;
+      document.getElementById('scoreBar').style.width = total + '%';
+      document.getElementById('scoreNum').textContent = `${total} / 100`;
+    }, 300);
+  }
 
-        <div class="panel">
-          <h3>Tu FiestaScore</h3>
-          <div class="score">
-            <div class="score__num" id="scoreNum">--</div>
-            <div class="score__meta">
-              <div class="badge" id="riskBadge">Riesgo</div>
-              <div class="muted" id="scoreExplain">—</div>
-            </div>
-          </div>
-          <div class="spark" aria-hidden="true"></div>
-        </div>
+  const eventLabels = {
+    boda: 'Boda', cumple: 'Cumpleaños / Fiesta privada',
+    empresa: 'Evento corporativo', otro: 'Otro tipo de evento'
+  };
+  const fearLabels = {
+    aburrimiento: 'Que la gente se aburra',
+    tecnico: 'Problemas técnicos / sonido',
+    dj: 'Contratar un DJ malo',
+    organizacion: 'Mala organización'
+  };
+  const dateLabels = {
+    '1mes': 'Menos de 1 mes',
+    '3meses': 'Entre 1 y 3 meses',
+    '6meses': 'Entre 3 y 6 meses',
+    masde6: 'Más de 6 meses'
+  };
 
-        <div class="panel">
-          <h3>Pack recomendado</h3>
-          <div class="pack">
-            <div class="pack__name" id="packName">—</div>
-            <div class="pack__price" id="packPrice">—</div>
-            <ul class="list" id="packList"></ul>
-          </div>
-        </div>
+  async function submitLead() {
+    const name = document.getElementById('fname').value.trim();
+    const phone = document.getElementById('fphone').value.trim();
+    const check = document.getElementById('fcheck').checked;
 
-        <div class="panel panel--wide">
-          <h3>Protocolo de seguridad</h3>
-          <ul class="list" id="protocolList"></ul>
-        </div>
-      </div>
+    if (!name || !phone) {
+      alert('Por favor, rellena tu nombre y WhatsApp para continuar.');
+      return;
+    }
+    if (!check) {
+      alert('Necesito tu aceptación para contactarte.');
+      return;
+    }
 
-      <div class="lead card--inner">
-        <h3>¿Te lo enviamos por email o WhatsApp?</h3>
-        <p class="sub2">Opcional. Si lo rellenas, te envío el informe + una propuesta rápida.</p>
+    const email = document.getElementById('femail').value.trim();
+    const zona = document.getElementById('fzona').value.trim();
+    const fiestascore = document.getElementById('scoreNum').textContent.replace(' / 100', '').trim();
 
-        <form id="leadForm" class="form">
-          <div class="row">
-            <label>Nombre
-              <input type="text" name="name" placeholder="Tu nombre" autocomplete="name" />
-            </label>
-            <label>Email
-              <input type="email" name="email" placeholder="tu@email.com" autocomplete="email" />
-            </label>
-          </div>
+    // Payload para Make → Google Sheets + Telegram
+    const payload = {
+      lead: {
+        name,
+        whatsapp: phone,
+        email: email || '',
+        zone: zona || ''
+      },
+      report: {
+        evento: eventLabels[answers.q1] || answers.q1,
+        miedo: fearLabels[answers.q2] || answers.q2,
+        fecha: dateLabels[answers.q3] || answers.q3,
+        fiestascore
+      }
+    };
 
-          <div class="row">
-            <label>WhatsApp (opcional)
-              <input type="tel" name="whatsapp" placeholder="+34…" autocomplete="tel" />
-            </label>
-            <label>Provincia / zona (opcional)
-              <input type="text" name="zone" placeholder="Ej: A Coruña / Pontevedra…" />
-            </label>
-          </div>
+    // Enviar a Make (no bloqueante)
+    fetch('https://hook.eu2.make.com/atbstqohwtc05uj0gpeco8xjmqnheiyw', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(() => {});
 
-          <label class="check">
-            <input type="checkbox" name="consent" />
-            Acepto que me contactes para este evento.
-          </label>
+    // Mensaje WhatsApp prellenado
+    const msgParts = [
+      `Hola DJ Ponte! Acabo de hacer el diagnóstico FiestaScore 🎉`,
+      `Nombre: ${name}`,
+      `Evento: ${eventLabels[answers.q1]}`,
+      `Mayor preocupación: ${fearLabels[answers.q2]}`,
+      `Fecha del evento: ${dateLabels[answers.q3]}`,
+      `FiestaScore: ${fiestascore}/100`,
+      email ? `Email: ${email}` : '',
+      zona ? `Zona: ${zona}` : ''
+    ].filter(Boolean);
 
-          <div class="row row--actions">
-            <button class="btn btn--ghost" type="button" id="downloadJsonBtn">Descargar informe (PDF)</button>
-            <button class="btn btn--primary" type="submit">Enviar</button>
-          </div>
+    const waMsg = encodeURIComponent(msgParts.join('\n'));
+    document.getElementById('waLink').href = `https://wa.me/34669060192?text=${waMsg}`;
 
-          <div class="muted" id="formMsg" role="status" aria-live="polite"></div>
-        </form>
-      </div>
-
-      <div class="cta">
-        <button class="btn btn--primary" id="ctaBtn">Quiero asegurar mi evento</button>
-        <button class="btn btn--ghost" id="shareBtn">Compartir</button>
-      </div>
-
-      <p class="fineprint">
-        Nota: este diagnóstico no compromete nada. Solo sirve para que el día del evento no haya sorpresas.
-      </p>
-    </section>
-
-    <footer class="footer">
-      <div class="muted">© DJ Ponte — Bodas · Cumpleaños · Eventos</div>
-    </footer>
-  </main>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous"></script>
-  <script src="app.js"></script>
+    // Mostrar pantalla de éxito
+    document.getElementById('leadSection').style.display = 'none';
+    document.getElementById('successScreen').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
 </body>
 </html>
